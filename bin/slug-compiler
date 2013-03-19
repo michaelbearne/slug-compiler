@@ -13,15 +13,17 @@ begin
   # TODO: unify this with existing logging
 rescue SlugCompiler::CompileFail => e
   puts(" !     Heroku push rejected, #{e.message}\n")
+  exit(1)
 rescue SlugCompiler::CompileError => e
   puts(" !     Heroku push rejected, #{e.message}\n")
   SlugCompiler.log("measure=slugc.fail elapsed=#{Time.now - start} " \
                    "message='#{e.message}'")
+  exit(2)
 rescue => e
   puts
   puts(" !     Heroku push rejected due to an unrecognized error.")
   puts(" !     We've been notified, see http://support.heroku.com if the problem persists.")
   puts("\n")
   SlugCompiler.log_error("measure=slugc.error elapsed=#{Time.now - start}", e)
-  raise if ENV["DEBUG"]
+  ENV["DEBUG"] ? raise : exit(3)
 end
