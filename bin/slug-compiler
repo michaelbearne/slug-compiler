@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-
+$:.unshift File.expand_path("../../lib", __FILE__)
 require "slug_compiler"
 
 build_dir, buildpack_url, cache_dir, output_dir = ARGV
