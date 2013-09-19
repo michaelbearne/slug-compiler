@@ -99,7 +99,7 @@ module SlugCompiler
     timeout = (ENV["COMPILE_TIMEOUT"] || 900).to_i
     Timeout.timeout(timeout) do
       pid = spawn(config, bin_compile, build_dir, cache_dir,
-                  unsetenv_others: true, err: :out)
+                  unsetenv_others: false, err: :out)
       Process.wait(pid)
       raise(CompileFail, "build failed") unless $?.exitstatus.zero?
     end
