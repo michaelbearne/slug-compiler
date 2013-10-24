@@ -23,8 +23,10 @@ module SlugCompiler
     config = buildpack_config(buildpack_url)
     buildpack_name = detect(build_dir, buildpack_dir)
     compile(build_dir, buildpack_dir, cache_dir, config)
-
+    print("-----> Compile complete... ")
+    print("-----> Starting prune... ")
     prune(build_dir)
+    print("-----> Compleated prune... ")
     process_types = parse_procfile(build_dir, output_dir)
     slug = archive(build_dir, output_dir)
     log_size(build_dir, cache_dir, slug)
